@@ -8,6 +8,7 @@ function onReady() {
     $('#addButton').on('click', addition);
     $('#subtractButton').on('click', subtraction);
     $('#multiplyButton').on('click', multiply);
+    $('#divideButton').on('click', divide);
 } // onReady function that will trigger on page load due to the $(document).ready(onReady)
 
 
@@ -98,7 +99,7 @@ function multiply() {
 }
 
 
-///////////////////////////////////////////////multiplyEquals function//////////////////////////////////////////////////
+///////////////////////////////////////////////multiplyEquals function//
 
 function multiplyEquals() {
     console.log('multiply like a Hydra.');
@@ -106,6 +107,45 @@ function multiplyEquals() {
     let newEquation = {
         number1: Number($('#numOneIn').val()),
         operation: '*',
+        number2: Number($('#numTwoIn').val()),
+        equals: '=',
+        result: answer,
+    }
+    console.log(newEquation); // checking to see if this new equation was created as an object that I can then put into the calculationList.js list
+    $('#answerOut').empty(); // empty the answer field on the page
+    $('#answerOut').append(answer); // update the answer field to the current result/answer
+
+    $.ajax({
+        method: 'POST',
+        url: '/calculations',
+        data: newEquation,
+    }).then(function(response) {
+        console.log('this is the post response from the server', response);
+        getCalculations();
+    }).catch(function(error) {
+        console.log(error);
+        alert(error.responseText);
+        
+    });
+}
+
+
+///////////////////////////////////////////////divide function//////////////////////////////////////////////////
+
+function divide() {
+    console.log('divide function!');
+    $('#equalsButton').on('click', divideEquals);
+}
+
+
+///////////////////////////////////////////////divideEquals function//
+
+function divideEquals() {
+    console.log('division time!');
+    let answer = Number($('#numOneIn').val()) / Number($('#numTwoIn').val());
+    let newEquation = {
+        number1: Number($('#numOneIn').val()),
+        operation: '/',
         number2: Number($('#numTwoIn').val()),
         equals: '=',
         result: answer,
@@ -151,3 +191,8 @@ function appendToDom(array) {
         `)
     }
 }
+
+////////////////////////////////////////////notes to self as I code//////////////////////////////////////////////////
+
+// what if I did an if statement or a function where it would clear the answer and would go back to onready. this might 
+// make it so it has to start over with the initial entry of numbers and clicking of operation button.
