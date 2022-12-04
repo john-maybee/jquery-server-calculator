@@ -27,10 +27,10 @@ function additionEquals() {
         result: answer,
     }
     console.log(newEquation); // checking to see if this new equation was created as an object that I can then put into the calculationList.js list
-//     postCalculation();
-// }
+    $('#answerOut').empty(); // empty the answer field on the page
+    $('#answerOut').append(answer); // update the answer field to the current result/answer
 
-// function postCalculation() {
+// below this is where I POST the new equation into the array of calculations
     $.ajax({
         method: 'POST',
         url: '/calculations',
