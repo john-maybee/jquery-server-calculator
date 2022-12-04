@@ -13,9 +13,19 @@ function onReady() {
 
 function addition() {
     console.log('addition function here. hi.');
-    $('#equalsButton').on('click', additionAnswer);
+    $('#equalsButton').on('click', additionEquals);
 }
 
-function additionAnswer() {
+function additionEquals() {
     console.log('add it up!');
+    let numOne = $('#numOneIn').val();
+    let numTwo = $('#numTwoIn').val();
+    let answer = numOne + numTwo;
+    let newEquation = {
+        number1: numOne,
+        operation: '+',
+        number2: numTwo,
+        equals: answer,
+    }
+    console.log(newEquation); // checking to see if this new equation was created as an object that I can then put into the calculationList.js list
 }
