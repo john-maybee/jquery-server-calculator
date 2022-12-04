@@ -18,13 +18,11 @@ function addition() {
 
 function additionEquals() {
     console.log('add it up!');
-    let numOne = $('#numOneIn').val();
-    let numTwo = $('#numTwoIn').val();
-    let answer = numOne + numTwo;
+    let answer = Number($('#numOneIn').val()) + Number($('#numTwoIn').val());
     let newEquation = {
-        number1: numOne,
+        number1: Number($('#numOneIn').val()),
         operation: '+',
-        number2: numTwo,
+        number2: Number($('#numTwoIn').val()),
         equals: answer,
     }
     console.log(newEquation); // checking to see if this new equation was created as an object that I can then put into the calculationList.js list
