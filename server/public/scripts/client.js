@@ -23,7 +23,45 @@ function additionEquals() {
         number1: Number($('#numOneIn').val()),
         operation: '+',
         number2: Number($('#numTwoIn').val()),
-        equals: answer,
+        equals: '=',
+        result: answer,
     }
     console.log(newEquation); // checking to see if this new equation was created as an object that I can then put into the calculationList.js list
+//     postCalculation();
+// }
+
+// function postCalculation() {
+    $.ajax({
+        method: 'POST',
+        url: '/calculations',
+        data: newEquation,
+    }).then(function(response) {
+        console.log('this is the post response from the server', response);
+        getCalculations();
+    }).catch(function(error) {
+        console.log(error);
+        alert(error.responseText);
+        
+    });
+} // could use this for each one
+
+function getCalculations() {
+    console.log('in getAddition');
+    $.ajax({
+        method: 'GET',
+        url: '/calculations',
+    }).then(function(response) {
+        console.log('our response from the server', response);
+        appendToDom(response);
+    })
+} // could use this for each one
+
+function appendToDom(array) {
+    console.log('in appendToDom!', array);
+    $('#resultListOut').empty();
+    for (let item of array){
+        $('#resultListOut').append(`
+            <li>${item.number1} ${item.operation} ${item.number2} ${item.equals} ${item.result}</li>
+        `)
+    }
 }
