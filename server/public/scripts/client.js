@@ -12,9 +12,9 @@ function onReady() {
     $('#clearButton').on('click', clearing);
 } // onReady function that will trigger on page load due to the $(document).ready(onReady)
 
-let newEquation = {};
+// let newEquation = {};
 
-
+// what if I empty newEquation again within the addition, subtraction etc. functions
 ///////////////////////////////////////////////addition function//////////////////////////////////////////////////
 
 function addition() {
@@ -47,7 +47,7 @@ function additionEquals() {
         data: newEquation,
     }).then(function(response) {
         console.log('this is the post response from the server', response);
-        newEquation = {};
+        newEquation.empty;
         getCalculations();
     }).catch(function(error) {
         console.log(error);
@@ -178,7 +178,7 @@ function divideEquals() {
         data: newEquation,
     }).then(function(response) {
         console.log('this is the post response from the server', response);
-        newEquation = {};
+        newEquation.empty;
         getCalculations();
     }).catch(function(error) {
         console.log(error);
@@ -195,8 +195,7 @@ function clearing() {
     $('#numOneIn').val(''); // clear numOneIn input field
     $('#numTwoIn').val(''); // clear numTwoIn input field
     $('#answerOut').empty(); // empty the answerOut h2 
-    newEquation = {}
-    onReady();
+    newEquation.empty;
 }
 
 
