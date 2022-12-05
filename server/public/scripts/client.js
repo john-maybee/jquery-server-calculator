@@ -238,3 +238,7 @@ function appendToDom(array) {
 // should I switch the way it reads the equation to if this = $('#add')
 
 // or should I do a let newEquation = {number1: Number($('#numOneIn').val()), operation: etc.}
+
+// could I splice() the information back out of the newEquation?
+
+// could enter in all of the operation types into the same function and do an "if $(this) = $('addButton')..." statement in an operation function
