@@ -234,3 +234,7 @@ function appendToDom(array) {
 // append the calculationList to the dom rather than the individual line each time
 
 // Why aren't the fields emptying properly after I send them to the array of objects
+
+// should I switch the way it reads the equation to if this = $('#add')
+
+// or should I do a let newEquation = {number1: Number($('#numOneIn').val()), operation: etc.}
