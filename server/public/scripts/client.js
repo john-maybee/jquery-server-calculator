@@ -4,48 +4,47 @@ $(document).ready(onReady);
 ///////////////////////////////////////////////onReady function//////////////////////////////////////////////////
 
 function onReady() {
-    console.log('It is go time!');
-    $('#addButton').on('click', addition);
-    $('#subtractButton').on('click', subtraction);
-    $('#multiplyButton').on('click', multiply);
-    $('#divideButton').on('click', divide);
+    console.log('It is go time!'); 
+    $('#addButton').on('click', addition); // trigger addition function on addButton click
+    $('#subtractButton').on('click', subtraction); // trigger subtract function on subtractButton click
+    $('#multiplyButton').on('click', multiply); // trigger multiply function on multiplyButton click
+    $('#divideButton').on('click', divide); // trigger divide function on divideButtton click
     $('#equalsButton').on('click', equalsPost);  // moved this to on ready and made each other button trigger a change in operator to prevent duplicate equation appending
-    $('#clearButton').on('click', clearing);
+    $('#clearButton').on('click', clearing); // trigger clear function on clearButton click
 } // onReady function that will trigger on page load due to the $(document).ready(onReady)
 
 let operator = ''; // this creates the operator as a blank string
 
 
-// what if I empty newEquation again within the addition, subtraction etc. functions
 ///////////////////////////////////////////////addition function//////////////////////////////////////////////////
 
 function addition() {
     operator = '+';
-}
+}  // changes the operator value to '+' when the addButton is clicked
 
 
 ///////////////////////////////////////////////subtraction function//////////////////////////////////////////////////
 
 function subtraction() {
     operator = '-';
-}
+}  // changes the operator value to '-' when the subtractButton is clicked
 
 
 ///////////////////////////////////////////////multiply function//////////////////////////////////////////////////
 
 function multiply() {
     operator = '*';
-}
+}  // changes the operator value to '*' when the multiplyButton is clicked
 
 
 ///////////////////////////////////////////////divide function//////////////////////////////////////////////////
 
 function divide() {
     operator = '/';
-}
+}  // changes the operator value to '/' when the divideButton is clicked
 
 
-////////////////////////////////////////////equalsPost function//
+//////////////////////////////////////////////equalsPost function////////////////////////////////////////////////
 
 function equalsPost() {
     console.log('equalsPost function!');
