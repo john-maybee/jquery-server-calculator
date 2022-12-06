@@ -241,3 +241,31 @@ function appendToDom(array) {
 // could I splice() the information back out of the newEquation?
 
 // could enter in all of the operation types into the same function and do an "if $(this) = $('addButton')..." statement in an operation function
+
+// for (var member in myObject) delete myObject[member];      // this is one way to empty an object using js
+
+// // for enumerable and non-enumerable of an object with proto chain
+// var props = Object.getOwnPropertyNames(obj);
+// for (var i = 0; i < props.length; i++) {
+//   delete obj[props[i]];
+// }
+                                                                            // These could also help empty the object. //
+// // for enumerable properties of shallow/plain object
+// for (var key in obj) {
+//   // this check can be safely omitted in modern JS engines
+//   // if (obj.hasOwnProperty(key))
+//     delete obj[key];
+// }
+
+
+
+// Object.keys(object).forEach(key => {
+//     delete object[key];
+// })
+//
+// const user = {
+//     name: 'John Doe',
+//     age: 25,
+//   };
+// 
+//   Object.keys(user) // ['name', 'age']
