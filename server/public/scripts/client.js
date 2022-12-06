@@ -61,7 +61,7 @@ function equalsPost() {
         $('#answerOut').empty(); // empty the answer field on the page
         $('#answerOut').append(answer); // update the answer field to the current result/answer
 
-    // below this is where I POST the new equation into the array of calculations
+        // below this is where I POST the new equation into the array of calculations//
         $.ajax({
             method: 'POST',
             url: '/calculations',
