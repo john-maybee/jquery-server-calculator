@@ -9,28 +9,46 @@ function onReady() {
     $('#subtractButton').on('click', subtraction);
     $('#multiplyButton').on('click', multiply);
     $('#divideButton').on('click', divide);
-    $('#equalsButton').on('click', equals);
+    $('#equalsButton').on('click', equalsPost);  // moved this to on ready and made each other button trigger a change in operator to prevent duplicate equation appending
     $('#clearButton').on('click', clearing);
 } // onReady function that will trigger on page load due to the $(document).ready(onReady)
 
 let operator = ''; // this creates the operator as a blank string
 
-// let newEquation = {};
 
 // what if I empty newEquation again within the addition, subtraction etc. functions
 ///////////////////////////////////////////////addition function//////////////////////////////////////////////////
 
 function addition() {
     operator = '+';
-    // console.log('addition function here. hi.');
-    // $('#equalsButton').on('click', additionEquals);
 }
 
 
-////////////////////////////////////////////additionEquals function//
+///////////////////////////////////////////////subtraction function//////////////////////////////////////////////////
 
-function equals() {
-    console.log('equals function!');
+function subtraction() {
+    operator = '-';
+}
+
+
+///////////////////////////////////////////////multiply function//////////////////////////////////////////////////
+
+function multiply() {
+    operator = '*';
+}
+
+
+///////////////////////////////////////////////divide function//////////////////////////////////////////////////
+
+function divide() {
+    operator = '/';
+}
+
+
+////////////////////////////////////////////equalsPost function//
+
+function equalsPost() {
+    console.log('equalsPost function!');
     if (operator === '+'){
         let answer = Number($('#numOneIn').val()) + Number($('#numTwoIn').val());
         newEquation = {
@@ -58,139 +76,94 @@ function equals() {
             alert(error.responseText);
             
         });
+    }
+    else if (operator === '-'){
+        let answer = Number($('#numOneIn').val()) - Number($('#numTwoIn').val());
+        newEquation = {
+            number1: Number($('#numOneIn').val()),
+            operation: '-',
+            number2: Number($('#numTwoIn').val()),
+            equals: '=',
+            result: answer,
+        }
+        console.log(newEquation); // checking to see if this new equation was created as an object that I can then put into the calculationList.js list
+
+        $('#answerOut').empty(); // empty the answer field on the page
+        $('#answerOut').append(answer); // update the answer field to the current result/answer
+
+
+        $.ajax({
+            method: 'POST',
+            url: '/calculations',
+            data: newEquation,
+        }).then(function(response) {
+            console.log('this is the post response from the server', response);
+            newEquation = {};
+            getCalculations();
+        }).catch(function(error) {
+            console.log(error);
+            alert(error.responseText);
+            
+        });
     } 
+    else if (operator === '*'){
+        let answer = Number($('#numOneIn').val()) * Number($('#numTwoIn').val());
+        newEquation = {
+            number1: Number($('#numOneIn').val()),
+            operation: '*',
+            number2: Number($('#numTwoIn').val()),
+            equals: '=',
+            result: answer,
+        }
+        console.log(newEquation); // checking to see if this new equation was created as an object that I can then put into the calculationList.js list
+        $('#answerOut').empty(); // empty the answer field on the page
+        $('#answerOut').append(answer); // update the answer field to the current result/answer
+
+
+        $.ajax({
+            method: 'POST',
+            url: '/calculations',
+            data: newEquation,
+        }).then(function(response) {
+            console.log('this is the post response from the server', response);
+            newEquation = {};
+            getCalculations();
+        }).catch(function(error) {
+            console.log(error);
+            alert(error.responseText);
+            
+        });
+    }
+    else if (operator === "/") {
+        let answer = Number($('#numOneIn').val()) / Number($('#numTwoIn').val());
+        newEquation = {
+            number1: Number($('#numOneIn').val()),
+            operation: '/',
+            number2: Number($('#numTwoIn').val()),
+            equals: '=',
+            result: answer,
+        }
+        console.log(newEquation); // checking to see if this new equation was created as an object that I can then put into the calculationList.js list
+        $('#answerOut').empty(); // empty the answer field on the page
+        $('#answerOut').append(answer); // update the answer field to the current result/answer
+
+
+        $.ajax({
+            method: 'POST',
+            url: '/calculations',
+            data: newEquation,
+        }).then(function(response) {
+            console.log('this is the post response from the server', response);
+            newEquation = {};
+            getCalculations();
+        }).catch(function(error) {
+            console.log(error);
+            alert(error.responseText);
+            
+        });
+    }
 } // could use this for each one
 
-
-///////////////////////////////////////////////subtraction function//////////////////////////////////////////////////
-
-function subtraction() {
-    console.log('subtraction can be good.');
-    $('#equalsButton').on('click', subtractionEquals);
-}
-
-
-////////////////////////////////////////////subtractionEquals function//
-
-function subtractionEquals() {
-    console.log('take some away!');
-    let answer = Number($('#numOneIn').val()) - Number($('#numTwoIn').val());
-    newEquation = {
-        number1: Number($('#numOneIn').val()),
-        operation: '-',
-        number2: Number($('#numTwoIn').val()),
-        equals: '=',
-        result: answer,
-    }
-    console.log(newEquation); // checking to see if this new equation was created as an object that I can then put into the calculationList.js list
-    // calculationList.push(newEquation);
-    $('#answerOut').empty(); // empty the answer field on the page
-    $('#answerOut').append(answer); // update the answer field to the current result/answer
-
-
-    $.ajax({
-        method: 'POST',
-        url: '/calculations',
-        data: newEquation,
-    }).then(function(response) {
-        console.log('this is the post response from the server', response);
-        newEquation = {};
-        getCalculations();
-    }).catch(function(error) {
-        console.log(error);
-        alert(error.responseText);
-        
-    });
-
-}
-
-
-///////////////////////////////////////////////multiply function//////////////////////////////////////////////////
-
-function multiply() {
-    console.log('Multiply by Mr. Sheeran');
-    $('#equalsButton').on('click', multiplyEquals);
-}
-
-
-///////////////////////////////////////////////multiplyEquals function//
-
-function multiplyEquals() {
-    console.log('multiply like a Hydra.');
-    let answer = Number($('#numOneIn').val()) * Number($('#numTwoIn').val());
-    newEquation = {
-        number1: Number($('#numOneIn').val()),
-        operation: '*',
-        number2: Number($('#numTwoIn').val()),
-        equals: '=',
-        result: answer,
-    }
-    console.log(newEquation); // checking to see if this new equation was created as an object that I can then put into the calculationList.js list
-    // calculationList.push(newEquation);
-    $('#answerOut').empty(); // empty the answer field on the page
-    $('#answerOut').append(answer); // update the answer field to the current result/answer
-
-
-    $.ajax({
-        method: 'POST',
-        url: '/calculations',
-        data: newEquation,
-    }).then(function(response) {
-        console.log('this is the post response from the server', response);
-        newEquation = {};
-        getCalculations();
-    }).catch(function(error) {
-        console.log(error);
-        alert(error.responseText);
-        
-    });
-
-
-
-}
-
-
-///////////////////////////////////////////////divide function//////////////////////////////////////////////////
-
-function divide() {
-    console.log('divide function!');
-    $('#equalsButton').on('click', divideEquals);
-}
-
-
-///////////////////////////////////////////////divideEquals function//
-
-function divideEquals() {
-    console.log('division time!');
-    let answer = Number($('#numOneIn').val()) / Number($('#numTwoIn').val());
-    newEquation = {
-        number1: Number($('#numOneIn').val()),
-        operation: '/',
-        number2: Number($('#numTwoIn').val()),
-        equals: '=',
-        result: answer,
-    }
-    console.log(newEquation); // checking to see if this new equation was created as an object that I can then put into the calculationList.js list
-    // calculationList.push(newEquation);
-    $('#answerOut').empty(); // empty the answer field on the page
-    $('#answerOut').append(answer); // update the answer field to the current result/answer
-
-
-    $.ajax({
-        method: 'POST',
-        url: '/calculations',
-        data: newEquation,
-    }).then(function(response) {
-        console.log('this is the post response from the server', response);
-        newEquation.empty;
-        getCalculations();
-    }).catch(function(error) {
-        console.log(error);
-        alert(error.responseText);
-        
-    });
-
-}
 
 /////////////////////////////////////////////////clear function////////////////////////////////////////////////////
 
