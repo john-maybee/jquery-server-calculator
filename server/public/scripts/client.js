@@ -9,8 +9,11 @@ function onReady() {
     $('#subtractButton').on('click', subtraction);
     $('#multiplyButton').on('click', multiply);
     $('#divideButton').on('click', divide);
+    $('#equalsButton').on('click', equals);
     $('#clearButton').on('click', clearing);
 } // onReady function that will trigger on page load due to the $(document).ready(onReady)
+
+let operator = ''; // this creates the operator as a blank string
 
 // let newEquation = {};
 
@@ -18,43 +21,44 @@ function onReady() {
 ///////////////////////////////////////////////addition function//////////////////////////////////////////////////
 
 function addition() {
-    console.log('addition function here. hi.');
-    $('#equalsButton').on('click', additionEquals);
+    operator = '+';
+    // console.log('addition function here. hi.');
+    // $('#equalsButton').on('click', additionEquals);
 }
 
 
 ////////////////////////////////////////////additionEquals function//
 
-function additionEquals() {
-    console.log('add it up!');
-    let answer = Number($('#numOneIn').val()) + Number($('#numTwoIn').val());
-    newEquation = {
-        number1: Number($('#numOneIn').val()),
-        operation: '+',
-        number2: Number($('#numTwoIn').val()),
-        equals: '=',
-        result: answer,
-    }
-    console.log(newEquation); // checking to see if this new equation was created as an object that I can then put into the calculationList.js list
-    // calculationList.push(newEquation);
-    $('#answerOut').empty(); // empty the answer field on the page
-    $('#answerOut').append(answer); // update the answer field to the current result/answer
+function equals() {
+    console.log('equals function!');
+    if (operator === '+'){
+        let answer = Number($('#numOneIn').val()) + Number($('#numTwoIn').val());
+        newEquation = {
+            number1: Number($('#numOneIn').val()),
+            operation: operator,
+            number2: Number($('#numTwoIn').val()),
+            equals: '=',
+            result: answer,
+        }
+        console.log(newEquation); // checking to see if this new equation was created as an object that I can then put into the calculationList.js list
+        $('#answerOut').empty(); // empty the answer field on the page
+        $('#answerOut').append(answer); // update the answer field to the current result/answer
 
-// below this is where I POST the new equation into the array of calculations
-    $.ajax({
-        method: 'POST',
-        url: '/calculations',
-        data: newEquation,
-    }).then(function(response) {
-        console.log('this is the post response from the server', response);
-        newEquation.empty;
-        getCalculations();
-    }).catch(function(error) {
-        console.log(error);
-        alert(error.responseText);
-        
-    });
-
+    // below this is where I POST the new equation into the array of calculations
+        $.ajax({
+            method: 'POST',
+            url: '/calculations',
+            data: newEquation,
+        }).then(function(response) {
+            console.log('this is the post response from the server', response);
+            newEquation = {};
+            getCalculations();
+        }).catch(function(error) {
+            console.log(error);
+            alert(error.responseText);
+            
+        });
+    } 
 } // could use this for each one
 
 
@@ -195,7 +199,6 @@ function clearing() {
     $('#numOneIn').val(''); // clear numOneIn input field
     $('#numTwoIn').val(''); // clear numTwoIn input field
     $('#answerOut').empty(); // empty the answerOut h2 
-    newEquation.empty;
 }
 
 
