@@ -10,7 +10,7 @@ const calculationList = require('./modules/calculationList');
 
 app.listen(port, () => {
     console.log('listening on port, ', port);
-}); // end of telling the application to listen to the port we defined above as 5001 and utilize node server we return
+} ); // end of telling the application to listen to the port we defined above as 5001 and utilize node server we return
 
 
 app.get('/calculations', function(req, res) {

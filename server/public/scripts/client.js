@@ -68,7 +68,7 @@ function equalsPost() {
             data: newEquation,
         }).then(function(response) {
             console.log('this is the post response from the server', response);
-            newEquation = {};
+            // newEquation = {};
             getCalculations();
         }).catch(function(error) {
             console.log(error);
@@ -244,3 +244,7 @@ function appendToDom(array) {
 //   };
 // 
 //   Object.keys(user) // ['name', 'age']
+
+// should the data I post be the two number inputs. then I could pass those numbers 
+// into the server and do the calculation in the server, then I add the items into 
+// an object then put that into the array, then post the array.
