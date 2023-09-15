@@ -1,0 +1,14 @@
+version: "3.8" # docker compose version
+services:
+  server: # name of the service
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/usr/app/
+    ports:
+      - "5001:5001"
+    # Run postgres before the server
+    # Environment variables (e.g. process.env.PORT)
+    environment:
+      PORT: 5001
